@@ -1,0 +1,26 @@
+upstream smtp_backend {
+    server ${MAIL_SERVER}::25;
+}
+
+upstream imap_backend {
+    server ${MAIL_SERVER}::143;
+}
+
+upstream pop3_backend {
+    server ${MAIL_SERVER}::110;
+}
+
+server {
+    listen 25;
+    proxy_pass smtp_backend;
+}
+
+server {
+    listen 143;
+    proxy_pass imap_backend;
+}
+
+server {
+    listen 110;
+    proxy_pass pop3_backend;
+}
